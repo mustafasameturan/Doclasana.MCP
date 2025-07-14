@@ -1,18 +1,55 @@
 {
   "name": "doclasana-mcp-server",
   "version": "1.0.0",
-  "description": "MCP Server for Doclasana documentation platform integration",
+  "description": "MCP Server for Doclasana documentation platform integration with AI-powered IDEs",
   "main": "dist/index.js",
+  "bin": {
+    "doclasana-mcp": "dist/index.js"
+  },
   "type": "module",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run build",
+    "prepack": "npm run build"
   },
-  "keywords": ["mcp", "doclasana", "documentation", "ai", "assistant"],
-  "author": "Doclasana Team",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "doclasana",
+    "documentation",
+    "ai",
+    "assistant",
+    "cursor",
+    "cline",
+    "windsurf",
+    "ide",
+    "developer-tools",
+    "typescript"
+  ],
+  "author": "Doclasana Team <support@doclasana.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mustafasameturan/Doclasana.MCP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mustafasameturan/Doclasana.MCP/issues"
+  },
+  "homepage": "https://github.com/mustafasameturan/Doclasana.MCP#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.6.0",
     "axios": "^1.7.0",
@@ -27,5 +64,8 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 } 

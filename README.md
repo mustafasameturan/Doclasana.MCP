@@ -1,55 +1,69 @@
 # Doclasana MCP Server
 
-Bu MCP (Model Context Protocol) server, geliştiricilerin Cursor, Cline, Windsurf gibi yapay zeka destekli IDE'lerde doğrudan Doclasana platformundaki dokümantasyonlarına erişebilmelerini sağlar.
+[![NPM Version](https://img.shields.io/npm/v/doclasana-mcp-server.svg)](https://www.npmjs.com/package/doclasana-mcp-server)
+[![NPM Downloads](https://img.shields.io/npm/dm/doclasana-mcp-server.svg)](https://www.npmjs.com/package/doclasana-mcp-server)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/node/v/doclasana-mcp-server.svg)](https://nodejs.org/)
 
-## Özellikler
+This MCP (Model Context Protocol) server enables developers to access documentation from the Doclasana platform directly within AI-powered IDEs like Cursor, Cline, and Windsurf.
 
-- **Güvenli Kimlik Doğrulama**: API anahtarı ile güvenli bağlantı
-- **Dokümantasyon Listeleme**: Sayfalama desteği ile tüm dokümanları listeleme
-- **Doküman Görüntüleme**: Belirli bir dokümanın tam içeriğini görüntüleme
-- **İçerik Arama**: Doküman içeriklerinde sunucu taraflı arama
-- **Markdown Desteği**: Markdown formatındaki dokümanların tam desteği
-- **Hata Yönetimi**: Anlaşılır ve kullanıcı dostu hata mesajları
+## ✨ Features
 
-## Kurulum
+- **🔐 Secure Authentication**: Secure connection with API key
+- **📋 Document Listing**: List all documents with pagination support
+- **📖 Document Viewing**: View complete content of specific documents
+- **🔍 Content Search**: Server-side search within document contents
+- **📝 Markdown Support**: Full support for Markdown formatted documents
+- **🚨 Error Handling**: Clear and user-friendly error messages
 
-### 1. Bağımlılıkları Yükleyin
+## 📦 Installation
+
+### NPM
 
 ```bash
-npm install
+npm install -g doclasana-mcp-server
 ```
 
-### 2. Projeyi Derleyin
+### From Source
+
+```bash
+git clone https://github.com/doclasana/doclasana-mcp-server.git
+cd doclasana-mcp-server
+npm install
+npm run build
+```
+
+## 🚀 Quick Start
+
+### 1. Build the Project
 
 ```bash
 npm run build
 ```
 
-### 3. MCP Server'ı Başlatın
+### 2. Start the MCP Server
 
 ```bash
 npm start
 ```
 
-Geliştirme modunda çalıştırmak için:
+For development mode:
 ```bash
 npm run dev
 ```
 
-**Not:** API anahtarı server başlangıcında değil, IDE konfigürasyonunda belirtilir.
+**Note:** The API key is specified in IDE configuration, not at server startup.
 
-## IDE Yapılandırması
+## ⚙️ IDE Configuration
 
 ### Cursor IDE
-
-`claude_desktop_config.json` dosyanıza aşağıdaki yapılandırmayı ekleyin:
 
 ```json
 {
   "mcpServers": {
     "doclasana": {
       "command": "node",
-      "args": ["/Users/mustafasameturan/Projects/Mcp/doclasana-mcp/dist/index.js"],
+      "args": ["/path/to/your/node_modules/doclasana-mcp-server/dist/index.js"],
       "env": {
         "DOCLASANA_API_KEY": "your-actual-doclasana-api-key"
       }
@@ -58,127 +72,158 @@ npm run dev
 }
 ```
 
-**Önemli:** 
-- `args` path'ini kendi proje dizininize göre güncelleyin
-- `DOCLASANA_API_KEY` değerini gerçek API anahtarınızla değiştirin
+### Using Global Installation
 
-### Diğer MCP Destekli IDE'ler
+If you installed globally:
 
-Diğer IDE'lerde de benzer şekilde MCP server'ınızı konfigüre edebilirsiniz. Node.js komutunu ve gerekli ortam değişkenlerini belirtmeniz yeterlidir.
+```json
+{
+  "mcpServers": {
+    "doclasana": {
+      "command": "doclasana-mcp",
+      "env": {
+        "DOCLASANA_API_KEY": "your-actual-doclasana-api-key"
+      }
+    }
+  }
+}
+```
 
-## Kullanım
+**Important:** 
+- Update the `args` path to your project directory if installing from source
+- Replace `DOCLASANA_API_KEY` value with your actual API key
 
-Bu MCP server aşağıdaki tool'ları sağlar:
+### Other MCP-Compatible IDEs
+
+You can configure this MCP server in other IDEs similarly. Just specify the Node.js command and required environment variables.
+
+## 🛠️ Available Tools
+
+This MCP server provides the following tools:
 
 ### 1. `list_documents`
 
-Kullanıcının erişebildiği tüm dokümanları listeler.
+Lists all documents accessible to the authenticated user.
 
-**Parametreler:**
-- `page` (opsiyonel): Sayfa numarası (varsayılan: 1)
-- `pageSize` (opsiyonel): Sayfa başına doküman sayısı (varsayılan: 20, maksimum: 100)
+**Parameters:**
+- `page` (optional): Page number (default: 1)
+- `pageSize` (optional): Documents per page (default: 20, max: 100)
 
-**Örnek:**
+**Example:**
 ```
-Dokümanlarımı listele
+List my documents
 ```
 
 ### 2. `search_documents`
 
-Doküman içeriklerinde anahtar kelime araması yapar.
+Searches for keywords within document contents.
 
-**Parametreler:**
-- `searchTerm` (zorunlu): Aranacak anahtar kelime
-- `page` (opsiyonel): Sayfa numarası (varsayılan: 1)
-- `pageSize` (opsiyonel): Sayfa başına doküman sayısı (varsayılan: 20, maksimum: 100)
+**Parameters:**
+- `searchTerm` (required): Keyword to search for
+- `page` (optional): Page number (default: 1)
+- `pageSize` (optional): Documents per page (default: 20, max: 100)
 
-**Örnek:**
+**Example:**
 ```
-"API anahtarı" ile ilgili dokümanları ara
+Search for documents containing "API key"
 ```
 
 ### 3. `get_document`
 
-Belirli bir dokümanın tam içeriğini getirir.
+Retrieves the complete content of a specific document.
 
-**Parametreler:**
-- `id` (zorunlu): Doküman ID'si
+**Parameters:**
+- `id` (required): Document ID
 
-**Örnek:**
+**Example:**
 ```
-ID'si "abc123" olan dokümanı getir
-```
-
-## Kullanım Senaryoları
-
-### Senaryo 1: Proje Dokümantasyonunu Keşfetme
-1. IDE'nizde yapay zeka asistanına "Dokümanlarımı listele" diyerek tüm dokümanları görüntüleyin
-2. İlginizi çeken bir dokümanın ID'sini not alın
-3. "ID'si [document-id] olan dokümanı getir" komutu ile tam içeriği okuyun
-
-### Senaryo 2: Belirli Bilgi Arama
-1. "API kullanımı" gibi bir anahtar kelime ile arama yapın
-2. Bulunan sonuçlarda ilgili dokümanı seçin
-3. Gerekirse tam içeriği görüntüleyin
-
-### Senaryo 3: Güncel Bilgileri Takip Etme
-1. Düzenli olarak dokümanları listeleyin
-2. Değişiklik tarihlerine bakarak güncellenmiş dokümanları tespit edin
-3. Güncellenmiş dokümanların tam içeriğini inceleyin
-
-## Hata Çözümleme
-
-### API Anahtarı Hatası
-- IDE konfigürasyonunda `DOCLASANA_API_KEY` değerinin doğru ayarlandığından emin olun
-- API anahtarınızın geçerli ve aktif olduğunu kontrol edin
-- Tool çağrısı sırasında "DOCLASANA_API_KEY environment variable is required" hatası alıyorsanız, IDE konfigürasyonunuzu kontrol edin
-
-### Bağlantı Hatası
-- İnternet bağlantınızı kontrol edin
-- Doclasana API servisinin çalışır durumda olduğunu doğrulayın
-
-### Yetki Hatası
-- API anahtarınızın dokümanlar için gerekli izinlere sahip olduğunu kontrol edin
-
-## Geliştirme
-
-### Test Çalıştırma
-```bash
-npm test
+Get document with ID "abc123"
 ```
 
-### Proje Yapısı
+## 💡 Usage Scenarios
+
+### Scenario 1: Exploring Project Documentation
+1. Tell your AI assistant in the IDE: "List my documents"
+2. Note the ID of an interesting document
+3. Use "Get document with ID [document-id]" to read the full content
+
+### Scenario 2: Finding Specific Information
+1. Search with a keyword like "API usage"
+2. Select the relevant document from results
+3. View full content if needed
+
+### Scenario 3: Tracking Updates
+1. Regularly list documents
+2. Check modification dates for updated documents
+3. Review updated document contents
+
+## 🔧 Troubleshooting
+
+### API Key Error
+- Ensure `DOCLASANA_API_KEY` is correctly set in IDE configuration
+- Verify your API key is valid and active
+- If you get "DOCLASANA_API_KEY environment variable is required" error, check your IDE configuration
+
+### Connection Error
+- Check your internet connection
+- Verify Doclasana API service is operational
+
+### Authorization Error
+- Ensure your API key has necessary permissions for documents
+
+## 🧪 Development
+
+### Project Structure
 ```
 doclasana-mcp-server/
 ├── src/
-│   ├── index.ts          # Ana MCP server kodu
-│   └── global.d.ts       # TypeScript tip tanımları
-├── dist/                 # Derlenmiş JavaScript dosyları
-├── package.json          # Proje bağımlılıkları
-├── tsconfig.json         # TypeScript yapılandırması
-└── README.md            # Bu dosya
+│   ├── index.ts          # Main MCP server code
+│   └── global.d.ts       # TypeScript type definitions
+├── dist/                 # Compiled JavaScript files
+├── package.json          # Project dependencies
+├── tsconfig.json         # TypeScript configuration
+├── LICENSE              # MIT License
+└── README.md            # This file
 ```
 
-## Katkıda Bulunma
+### Scripts
 
-1. Bu repoyu fork edin
-2. Özellik dalı oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
-4. Dalınıza push edin (`git push origin feature/amazing-feature`)
-5. Pull Request oluşturun
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm run dev` - Run in development mode with auto-reload
+- `npm start` - Start the compiled server
+- `npm test` - Run tests
+- `npm run prepublishOnly` - Pre-publish build hook
 
-## Lisans
+## 🤝 Contributing
 
-Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için `LICENSE` dosyasına bakın.
+1. Fork this repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Destek
+## 📄 License
 
-Herhangi bir sorunuz veya öneriniz varsa, lütfen [GitHub Issues](https://github.com/doclasana/doclasana-mcp-server/issues) sayfasından iletişime geçin.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Sürüm Geçmişi
+## 🆘 Support
+
+If you have any questions or suggestions, please reach out through [GitHub Issues](https://github.com/doclasana/doclasana-mcp-server/issues).
+
+## 🏷️ Version History
 
 ### v1.0.0
-- İlk MVP sürümü
-- Temel doküman listeleme, arama ve görüntüleme özellikleri
-- API anahtarı ile güvenli kimlik doğrulama
-- Markdown doküman desteği 
+- Initial MVP release
+- Basic document listing, searching, and viewing features
+- Secure API key authentication
+- Markdown document support
+
+## 🔗 Related
+
+- [Doclasana Platform](https://doclasana.com)
+- [Model Context Protocol Specification](https://modelcontextprotocol.io/)
+- [Cursor IDE](https://cursor.sh/)
+
+---
+
+Made with ❤️ by the [Doclasana Team](https://doclasana.com) 
