@@ -4,24 +4,24 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/doclasana-mcp-server.svg)](https://www.npmjs.com/package/doclasana-mcp-server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Doclasana belgelerinize Cursor, Cline ve Windsurf gibi AI destekli IDE'lerden doğrudan erişin.
+Store your documents on Doclasana and access them directly from AI-powered IDEs like Cursor, Cline, and Windsurf.
 
-## Özellikler
+## Features
 
-- Belgelerinizi listeleyin ve arayın
-- Belge içeriklerini görüntüleyin
-- Güvenli API anahtarı kimlik doğrulaması
-- Tüm MCP uyumlu IDE'lerle çalışır
+- List and search your documents
+- View document contents
+- Secure API key authentication
+- Works with all MCP-compatible IDEs
 
-## Kurulum
+## Installation
 
-### Seçenek 1: NPM (Önerilen)
+### Option 1: NPM (Recommended)
 
 ```bash
 npm install -g doclasana-mcp-server
 ```
 
-### Seçenek 2: Kaynak Koddan
+### Option 2: From Source
 
 ```bash
 git clone https://github.com/mustafasameturan/Doclasana.MCP.git
@@ -30,15 +30,15 @@ npm install
 npm run build
 ```
 
-## Kurulum
+## Setup
 
-### 1. API Anahtarınızı Alın
-Doclasana hesap ayarlarınızdan API anahtarınızı alın.
+### 1. Get Your API Key
+Get your API key from [Doclasana](https://doclasana.com) account settings.
 
-### 2. IDE'nizi Yapılandırın
+### 2. Configure Your IDE
 
 #### Cursor IDE
-MCP ayarlarınıza şunu ekleyin:
+Add this to your MCP settings:
 
 ```json
 {
@@ -46,62 +46,62 @@ MCP ayarlarınıza şunu ekleyin:
     "doclasana": {
       "command": "doclasana-mcp",
       "env": {
-        "DOCLASANA_API_KEY": "api-anahtariniz-buraya"
+        "DOCLASANA_API_KEY": "your-api-key-here"
       }
     }
   }
 }
 ```
 
-#### Kaynak Koddan Kurulum
-Kaynak koddan kurulum yaptıysanız şunu kullanın:
+#### From Source Installation
+If you installed from source, use this:
 
 ```json
 {
   "mcpServers": {
     "doclasana": {
       "command": "node",
-      "args": ["/Doclasana.MCP/dizin/yolu/dist/index.js"],
+      "args": ["/path/to/Doclasana.MCP/dist/index.js"],
       "env": {
-        "DOCLASANA_API_KEY": "api-anahtariniz-buraya"
+        "DOCLASANA_API_KEY": "your-api-key-here"
       }
     }
   }
 }
 ```
 
-### 3. Kullanmaya Başlayın
-Yapılandırma tamamlandıktan sonra AI asistanınıza şunları sorabilirsiniz:
-- "Belgelerimi listele"
-- "API hakkında belgeler ara"
-- "abc123 ID'li belgeyi getir"
+### 3. Start Using
+After configuration is complete, you can ask your AI assistant:
+- "List my documents"
+- "Search for documents about API"
+- "Get document with ID abc123"
 
-## Kullanılabilir Komutlar
+## Available Commands
 
-- `list_documents` - Tüm belgelerinizi sayfalama ile listeler
-- `search_documents` - Belge içeriklerinde arama yapar
-- `get_document` - Belirli bir belgenin tam içeriğini getirir
+- `list_documents` - Lists all your documents with pagination
+- `search_documents` - Searches within document contents
+- `get_document` - Retrieves the full content of a specific document
 
-## Geliştirme
+## Development
 
-### Komutlar
-- `npm run build` - TypeScript'i derle
-- `npm run dev` - Geliştirme modunda çalıştır
-- `npm start` - Sunucuyu başlat
-- `npm test` - Testleri çalıştır
+### Commands
+- `npm run build` - Compile TypeScript
+- `npm run dev` - Run in development mode
+- `npm start` - Start the server
+- `npm test` - Run tests
 
-### Proje Yapısı
+### Project Structure
 ```
 src/
-├── index.ts          # Ana MCP sunucusu
-└── global.d.ts       # Tip tanımları
-dist/                 # Derlenmiş çıktı
+├── index.ts          # Main MCP server
+└── global.d.ts       # Type definitions
+dist/                 # Compiled output
 ```
 
-## Lisans
+## License
 
-MIT Lisansı - [LICENSE](LICENSE) dosyasına bakın.
+MIT License - see [LICENSE](LICENSE) file.
 
-## Destek
+## Support
 
-Sorularınız veya sorunlarınız için [GitHub Issues](https://github.com/mustafasameturan/Doclasana.MCP/issues) sayfasını ziyaret edin.
+For questions or issues, visit [GitHub Issues](https://github.com/mustafasameturan/Doclasana.MCP/issues).
